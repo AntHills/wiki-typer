@@ -1,22 +1,23 @@
 import { wikiText } from "../scripts/wikiText.js";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 function TypingInput() {
   const [typedText, setTypedText] = useState("");
   const [correctIndex, setCorrectIndex] = useState(0);
   const [incorrectIndex, setIncorrectIndex] = useState();
+  const [hasStarted, setHasStarted] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
   const wikiTextElementRef = useRef(null);
-  const typedElementRef = useRef(null);
-  const typedIncorrectElementRef = useRef(null);
-  const untypedElementRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     validateTextTyped();
   }, [typedText]);
 
   function validateTextTyped() {
     const needsCheckingWiki = wikiText.slice(correctIndex, typedText.length);
     const needsCheckingTyped = typedText.slice(correctIndex, typedText.length);
+    console.log(`Checking wiki: ${needsCheckingWiki}`);
+    console.log(`Checking typed: ${needsCheckingTyped}`);
 
     if (needsCheckingTyped === needsCheckingWiki) {
       setCorrectIndex(typedText.length);
@@ -24,44 +25,36 @@ function TypingInput() {
     } else if (!incorrectIndex) {
       setIncorrectIndex(typedText.length - 1);
     }
-    /*
-    const wikiTextSpread = wikiText.split("", typedText.length);
-    console.log(wikiTextSpread);
-    const typedTextSpread = [...typedText];
-    console.log(typedTextSpread);
-
-    if (JSON.stringify(wikiTextSpread) === JSON.stringify(typedTextSpread)) {
-      return true;
-    } else {
-      return false;
-    }
-      */
   }
 
   function displayIncorrectText() {
-    let text = "";
     if (incorrectIndex) {
-      text = typedText.slice(incorrectIndex, typedText.length);
-      return text;
+      return (
+        <span className="typed-error">
+          {typedText.slice(incorrectIndex, typedText.length)}
+        </span>
+      );
     }
   }
 
   function displayTypedText() {
-    const text = typedText.slice(0, correctIndex);
-    return text;
+    return <span className="typed">{typedText.slice(0, correctIndex)}</span>;
   }
 
   function displayUntypedText() {
-    const untypedText = wikiText.slice(typedText.length, wikiText.length);
-    return untypedText;
+    return (
+      <span className="untyped">
+        {wikiText.slice(typedText.length, wikiText.length)}
+      </span>
+    );
   }
 
   return (
     <>
       <div className="input-container" ref={wikiTextElementRef}>
-        <span className="typed">{displayTypedText()}</span>
-        <span className="typed-error">{displayIncorrectText()}</span>
-        <span className="untyped">{displayUntypedText()}</span>
+        {displayTypedText()}
+        {displayIncorrectText()}
+        {displayUntypedText()}
         <input
           value={typedText}
           type="text"
