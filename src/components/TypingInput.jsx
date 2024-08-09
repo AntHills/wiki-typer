@@ -16,8 +16,6 @@ function TypingInput() {
   function validateTextTyped() {
     const needsCheckingWiki = wikiText.slice(correctIndex, typedText.length);
     const needsCheckingTyped = typedText.slice(correctIndex, typedText.length);
-    console.log(`Checking wiki: ${needsCheckingWiki}`);
-    console.log(`Checking typed: ${needsCheckingTyped}`);
 
     if (needsCheckingTyped === needsCheckingWiki) {
       setCorrectIndex(typedText.length);
