@@ -18,6 +18,9 @@ function WikiTyper() {
   async function loadText() {
     setIsLoading(true);
     await getTypeText();
+    if (!wikiText) {
+      await getTypeText();
+    }
     setIsLoading(false);
   }
 
