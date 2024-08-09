@@ -43,6 +43,8 @@ body {
   padding: 20px;
   border: 1px solid;
   border-radius: 10px;
+  font-family: monospace;
+  font-size: 20px;
 }
 
 .typing-input {
@@ -52,4 +54,12 @@ body {
 }
 
 .untyped {
+}
+
+.typed {
+  background-color: rgb(67, 223, 67);
+}
+
+.typed-error {
+  background-color: rgb(245, 119, 119);
 }

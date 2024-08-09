@@ -35,10 +35,6 @@ export function getRandomWiki() {
 }
 
 export function getWikiPageText(page) {
-  //let typePage;
-
-  console.log(page);
-
   const params = {
     action: "parse",
     format: "json",
@@ -89,7 +85,6 @@ function parseWikiText(pageHTML, minLength) {
   let dotIndex = text.indexOf(".");
 
   while (parsedText.length < minLength) {
-    console.log(dotIndex);
     if (dotIndex === -1) {
       break;
     }
@@ -101,8 +96,74 @@ function parseWikiText(pageHTML, minLength) {
   parsedText = parsedText.trim();
 
   //Check for citation characters
+  parsedText = parsedText.replace(/\[.*?\]/g, "");
+
+  //Check for accented characters
+  const accentMap = {
+    á: "a",
+    Á: "A",
+    à: "a",
+    À: "A",
+    â: "a",
+    Â: "A",
+    ã: "a",
+    Ã: "A",
+    ä: "a",
+    Ä: "A",
+    å: "a",
+    Å: "A",
+    æ: "ae",
+    Æ: "AE",
+    é: "e",
+    É: "E",
+    è: "e",
+    È: "E",
+    ê: "e",
+    Ê: "E",
+    ë: "e",
+    Ë: "E",
+    í: "i",
+    Í: "I",
+    ì: "i",
+    Ì: "I",
+    î: "i",
+    Î: "I",
+    ï: "i",
+    Ï: "I",
+    ó: "o",
+    Ó: "O",
+    ò: "o",
+    Ò: "O",
+    ô: "o",
+    Ô: "O",
+    õ: "o",
+    Õ: "O",
+    ö: "o",
+    Ö: "O",
+    ú: "u",
+    Ú: "U",
+    ù: "u",
+    Ù: "U",
+    û: "u",
+    Û: "U",
+    ü: "u",
+    Ü: "U",
+    ñ: "n",
+    õ: "o",
+    ø: "o",
+    Ø: "O",
+    ý: "y",
+    Ý: "Y",
+    ÿ: "y",
+    Ÿ: "Y",
+  };
+  parsedText = parsedText.replace(
+    /[^\u0000-\u007F]/g,
+    (char) => accentMap[char] || char
+  );
 
   //Check for non english characters
+  parsedText = parsedText.replace(/[^\x00-\x7F]/g, "");
 
   return parsedText;
 }

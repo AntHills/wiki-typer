@@ -3,13 +3,28 @@ import React, { useState, useRef, useEffect } from "react";
 
 function TypingInput() {
   const [typedText, setTypedText] = useState("");
+  const [correctIndex, setCorrectIndex] = useState(0);
+  const [incorrectIndex, setIncorrectIndex] = useState();
   const wikiTextElementRef = useRef(null);
+  const typedElementRef = useRef(null);
+  const typedIncorrectElementRef = useRef(null);
+  const untypedElementRef = useRef(null);
 
   useEffect(() => {
     validateTextTyped();
   }, [typedText]);
 
   function validateTextTyped() {
+    const needsCheckingWiki = wikiText.slice(correctIndex, typedText.length);
+    const needsCheckingTyped = typedText.slice(correctIndex, typedText.length);
+
+    if (needsCheckingTyped === needsCheckingWiki) {
+      setCorrectIndex(typedText.length);
+      setIncorrectIndex(null);
+    } else if (!incorrectIndex) {
+      setIncorrectIndex(typedText.length - 1);
+    }
+    /*
     const wikiTextSpread = wikiText.split("", typedText.length);
     console.log(wikiTextSpread);
     const typedTextSpread = [...typedText];
@@ -20,25 +35,33 @@ function TypingInput() {
     } else {
       return false;
     }
+      */
   }
 
-  function displayFormattedText() {
-    let inputHTML = [];
+  function displayIncorrectText() {
+    let text = "";
+    if (incorrectIndex) {
+      text = typedText.slice(incorrectIndex, typedText.length);
+      return text;
+    }
+  }
 
-    // Check typed
+  function displayTypedText() {
+    const text = typedText.slice(0, correctIndex);
+    return text;
+  }
 
-    // get remaining text
-    const untypedHTML = <span className="untyped">{wikiText}</span>;
-    console.log(untypedHTML);
-    inputHTML.push(untypedHTML);
-    console.log(inputHTML);
-    return inputHTML;
+  function displayUntypedText() {
+    const untypedText = wikiText.slice(typedText.length, wikiText.length);
+    return untypedText;
   }
 
   return (
     <>
       <div className="input-container" ref={wikiTextElementRef}>
-        {wikiText}
+        <span className="typed">{displayTypedText()}</span>
+        <span className="typed-error">{displayIncorrectText()}</span>
+        <span className="untyped">{displayUntypedText()}</span>
         <input
           value={typedText}
           type="text"
