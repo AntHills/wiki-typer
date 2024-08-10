@@ -95,6 +95,9 @@ function parseWikiText(pageHTML, minLength) {
   //Clear new line characters
   parsedText = parsedText.trim();
 
+  //Clear weird spaces
+  parsedText = parsedText.replace(/\s+/g, " ");
+
   //Check for citation characters
   parsedText = parsedText.replace(/\[.*?\]/g, "");
 

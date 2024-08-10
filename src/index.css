@@ -26,9 +26,10 @@ body {
 
 .typing-container {
   flex: 1;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  min-width: 850px;
+  min-height: 100vh;
 }
 
 .typing-header {
@@ -39,7 +40,6 @@ body {
 }
 
 .input-container {
-  flex-shrink: 0;
   padding: 20px;
   border: 1px solid;
   border-radius: 10px;
@@ -59,4 +59,48 @@ body {
 
 .typed-error {
   background-color: rgb(245, 119, 119);
+}
+
+.time-display {
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.raw-wpm-display {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.raw-wpm-display-label {
+  font-weight: bold;
+}
+
+.page-name {
+  max-width: 200px;
+}
+
+.wpm-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls-container {
+  display: flex;
+  justify-content: center;
+}
+
+.new-text-button {
+  cursor: pointer;
+  background-color: rgb(101, 223, 101);
+  border: none;
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  transition: 0.5s ease;
+}
+
+.new-text-button:hover {
+  background-color: rgb(64, 168, 64);
 }
