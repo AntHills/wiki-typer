@@ -1,8 +1,7 @@
-# React + Vite
+# Wiki Typer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project uses the Wikipedia API to get a random page. It will then parse the data and display for the user to test their typing speed.
 
-Currently, two official plugins are available:
+This project can be viewed from the below link:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Wiki Typer](https://wikityper.appsbyjames.com/)
