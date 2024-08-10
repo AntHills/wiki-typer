@@ -32,6 +32,18 @@ body {
   min-height: 100vh;
 }
 
+@media (max-width: 650px) {
+  .typing-container {
+    min-width: unset;
+  }
+  .page-name {
+    font-size: 1.5em;
+  }
+  .stats-container {
+    display: none;
+  }
+}
+
 .typing-header {
   display: flex;
   flex-shrink: 0;
