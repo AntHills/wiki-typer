@@ -109,7 +109,7 @@ function WikiTyper() {
             </div>
             <div className="input-container">
               {isLoading ? (
-                "Loading"
+                "Fetching random wikipedia text"
               ) : (
                 <TypingInput
                   start={() => {
